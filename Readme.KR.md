@@ -118,40 +118,42 @@
 또한 설치 가이드를 참고하여 더 이상 필요 없는 추가 도구(`uv`, `ffmpeg`, `deeplx` 등)가 있는지 점검하세요.
 
 
-## 🤗 Want to contribute?
-Checkout the [development guide](https://docs.llmvtuber.com/docs/development-guide/overview).
+## 🤗 기여하고 싶으시다면?
+[Development Guide](https://docs.llmvtuber.com/docs/development-guide/overview)를 참고하세요.
 
 
-# 🎉🎉🎉 Related Projects
+# 🎉🎉🎉 관련된 프로젝트
 
 [ylxmf2005/LLM-Live2D-Desktop-Assitant](https://github.com/ylxmf2005/LLM-Live2D-Desktop-Assitant)
-- Your Live2D desktop assistant powered by LLM! Available for both Windows and MacOS, it senses your screen, retrieves clipboard content, and responds to voice commands with a unique voice. Featuring voice wake-up, singing capabilities, and full computer control for seamless interaction with your favorite character.
+- LLM으로 구동되는 **Live2D 데스크톱 어시스턴트**입니다! Windows와 MacOS에서 모두 사용 가능하며, 화면을 감지하고 클립보드 내용을 가져오며, 고유한 음성으로 음성 명령에 반응합니다. **음성 깨우기, 노래 기능**, 전체 컴퓨터 제어를 지원하여 좋아하는 캐릭터와 매끄럽게 상호작용할 수 있습니다.
 
 
 
 
 
 
-## 📜 Third-Party Licenses
 
-### Live2D Sample Models Notice
+## 📜 써드 파티 라이센스들 (Third-Party Licenses)
 
-This project includes Live2D sample models provided by Live2D Inc. These assets are licensed separately under the Live2D Free Material License Agreement and the Terms of Use for Live2D Cubism Sample Data. They are not covered by the MIT license of this project.
+### Live2D 샘플 모델 고지 (Live2D Sample Models Notice)
 
-This content uses sample data owned and copyrighted by Live2D Inc. The sample data are utilized in accordance with the terms and conditions set by Live2D Inc. (See [Live2D Free Material License Agreement](https://www.live2d.jp/en/terms/live2d-free-material-license-agreement/) and [Terms of Use](https://www.live2d.com/eula/live2d-sample-model-terms_en.html)).
+이 프로젝트에는 **Live2D Inc.에서 제공한 Live2D 샘플 모델**이 포함되어 있습니다. 해당 자산은 **Live2D Free Material License Agreement** 및 **Live2D Cubism Sample Data 이용 약관**에 따라 별도로 라이선스가 부여되며, 이 프로젝트의 MIT 라이선스에는 포함되지 않습니다.
 
-Note: For commercial use, especially by medium or large-scale enterprises, the use of these Live2D sample models may be subject to additional licensing requirements. If you plan to use this project commercially, please ensure that you have the appropriate permissions from Live2D Inc., or use versions of the project without these models.
+이 콘텐츠는 Live2D Inc.가 소유하고 저작권을 가진 샘플 데이터를 사용하며, Live2D Inc.에서 정한 **약관과 조건**에 따라 활용됩니다. (자세한 내용은 [Live2D Free Material License Agreement](https://www.live2d.jp/en/terms/live2d-free-material-license-agreement/) 및 [Terms of Use](https://www.live2d.com/eula/live2d-sample-model-terms_en.html) 참고)
+
+참고: 특히 중견·대규모 기업에서 **상업적 사용** 시, 이 Live2D 샘플 모델의 사용은 추가 라이선스 요구 사항이 적용될 수 있습니다. 프로젝트를 상업적으로 활용할 계획이라면, 반드시 Live2D Inc.로부터 적절한 허가를 받거나, 해당 모델이 포함되지 않은 버전을 사용하시기 바랍니다.
 
 
-## Contributors
-Thanks our contributors and maintainers for making this project possible.
+
+## 기여자분들
+이 프로젝트가 가능하도록 해주신 **기여자와 유지보수자분들께 감사드립니다.**
 
 <a href="https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Open-LLM-VTuber/Open-LLM-VTuber" />
 </a>
 
 
-## Star History
+## 스타 기록 (Star History)
 
 [![Star History Chart](https://api.star-history.com/svg?repos=t41372/open-llm-vtuber&type=Date)](https://star-history.com/#t41372/open-llm-vtuber&Date)
 
