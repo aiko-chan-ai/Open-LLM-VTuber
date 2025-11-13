@@ -92,29 +92,31 @@
   - 🔌 우수한 확장성: 모듈식 설계를 통해 자신만의 LLM, ASR, TTS 등 모듈을 쉽게 추가할 수 있으며, 언제든 새로운 기능을 확장할 수 있습니다.
 
 
-## 👥 User Reviews
-> Thanks to the developer for open-sourcing and sharing the girlfriend for everyone to use
+## 👥 사용자 리뷰
+> 개발자분께 감사드리며, 모든 사람이 사용할 수 있도록 파트너를 오픈소스로 공유해주셔서 감사합니다.
 > 
-> This girlfriend has been used over 100,000 times
+> 이 파트너는 10만 회 이상 사용되었습니다.
 
 
-## 🚀 Quick Start
+## 🚀 빠른 시작
 
-Please refer to the [Quick Start](https://open-llm-vtuber.github.io/docs/quick-start) section in our documentation for installation.
+설치는 문서의 [Quick Start](https://open-llm-vtuber.github.io/docs/quick-start) 섹션을 참고하세요.
 
 
 
-## ☝ Update
-> :warning: `v1.0.0` has breaking changes and requires re-deployment. You *may* still update via the method below, but the `conf.yaml` file is incompatible and most of the dependencies needs to be reinstalled with `uv`. For those who came from versions before `v1.0.0`, I recommend deploy this project again with the [latest deployment guide](https://open-llm-vtuber.github.io/docs/quick-start).
 
-Please use `uv run update.py` to update if you installed any versions later than `v1.0.0`.
+## ☝ 업데이트
+> :warning: `v1.0.0` 버전은 **호환되지 않는 변경 사항**이 있어 재배포가 필요합니다. 아래 방법으로 업데이트**할 수는** 있으나, `conf.yaml` 파일이 호환되지 않으며 대부분의 의존성을 `uv`로 다시 설치해야 합니다. `v1.0.0` 이전 버전에서 업그레이드하는 경우, [최신 배포 가이드](https://open-llm-vtuber.github.io/docs/quick-start)를 참고하여 프로젝트를 다시 배포하는 것을 권장합니다.
 
-## 😢 Uninstall  
-Most files, including Python dependencies and models, are stored in the project folder.
+`v1.0.0` 이후 버전을 설치한 경우, 업데이트는 `uv run update.py`를 사용하세요.
 
-However, models downloaded via ModelScope or Hugging Face may also be in `MODELSCOPE_CACHE` or `HF_HOME`. While we aim to keep them in the project's `models` directory, it's good to double-check.  
+## 😢 삭제 (Uninstall)
+대부분의 파일은 Python 의존성과 모델을 포함하여 프로젝트 폴더에 저장됩니다.
 
-Review the installation guide for any extra tools you no longer need, such as `uv`, `ffmpeg`, or `deeplx`.  
+다만, ModelScope나 Hugging Face를 통해 다운로드한 모델은 `MODELSCOPE_CACHE` 또는 `HF_HOME`에 저장될 수도 있습니다. 프로젝트의 `models` 디렉토리에 보관하는 것이 목표이지만, 한 번 확인해보는 것이 좋습니다.
+
+또한 설치 가이드를 참고하여 더 이상 필요 없는 추가 도구(`uv`, `ffmpeg`, `deeplx` 등)가 있는지 점검하세요.
+
 
 ## 🤗 Want to contribute?
 Checkout the [development guide](https://docs.llmvtuber.com/docs/development-guide/overview).
