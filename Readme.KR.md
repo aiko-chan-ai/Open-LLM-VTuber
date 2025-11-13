@@ -36,7 +36,7 @@
 
 > :warning: 이 프로젝트는 아직 초기 단계에 있으며, 현재 **활발히 개발 중**입니다.
 
-> :warning: 서버를 원격으로 실행하고 다른 기기(예: 컴퓨터에서 서버를 실행하고 휴대폰에서 접속)를 통해 접근하려면 ' https ' 설정이 필요합니다. 이는 프론트엔드의 마이크 기능이 보안된 환경(https 또는 localhost) 에서만 동작하기 때문입니다. 자세한 내용-> [MDN Web Doc](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia).따라서 원격 기기(즉, localhost가 아닌 환경)에서 페이지에 접근하려면 리버스 프록시를 사용해 https를 설정해야 합니다.
+> :warning: 서버를 원격으로 실행하고 다른 기기(예: 컴퓨터에서 서버를 실행하고 휴대폰에서 접속)를 통해 접근하려면 `https` 설정이 필요합니다. 이는 프론트엔드의 마이크 기능이 보안된 환경(https 또는 localhost) 에서만 동작하기 때문입니다. 자세한 내용-> [MDN Web Doc](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia).따라서 원격 기기(즉, localhost가 아닌 환경)에서 페이지에 접근하려면 리버스 프록시를 사용해 https를 설정해야 합니다.
 
 
 ## ⭐️ What is this project?
