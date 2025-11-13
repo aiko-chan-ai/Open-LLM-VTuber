@@ -26,7 +26,7 @@
 </h3>
 
 
-> 常见问题 Common Issues doc (Written in Chinese): https://docs.qq.com/pdf/DTFZGQXdTUXhIYWRq
+> 常见问题 일반적인 문제 문서 (중국어로 작성됨): https://docs.qq.com/pdf/DTFZGQXdTUXhIYWRq
 >
 > 사용자 설문조사: https://forms.gle/w6Y6PiHTZr1nzbtWA
 >
