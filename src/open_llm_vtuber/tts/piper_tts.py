@@ -113,5 +113,5 @@ class TTSEngine(TTSInterface):
             return file_name
 
         except Exception as e:
-            logger.critical(f"\nError: Piper TTS unable to generate audio: {e}")
+            logger.critical(f"Error: Piper TTS unable to generate audio: {e}")
             return None
