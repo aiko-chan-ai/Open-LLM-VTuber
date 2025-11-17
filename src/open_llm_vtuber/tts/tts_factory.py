@@ -187,6 +187,7 @@ class TTSFactory:
             )
         elif engine_type == "cartesia_tts":
             from .cartesia_tts import TTSEngine as CartesiaTTSEngine
+
             return CartesiaTTSEngine(
                 api_key=kwargs.get("api_key"),
                 voice_id=kwargs.get("voice_id", "6ccbfb76-1fc6-48f7-b71d-91ac6298247b"),

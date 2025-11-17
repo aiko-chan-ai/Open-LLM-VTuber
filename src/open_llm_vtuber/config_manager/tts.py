@@ -110,6 +110,7 @@ CartesiaEmotions = Literal[
     "determined",
 ]
 
+
 class AzureTTSConfig(I18nMixin):
     """Configuration for Azure TTS service."""
 
@@ -572,65 +573,63 @@ class ElevenLabsTTSConfig(I18nMixin):
             en="Voice similarity boost (0.0 to 1.0)", zh="语音相似度增强（0.0 到 1.0）"
         ),
         "style": Description(
-            en="Voice style exaggeration (0.0 to 1.0)", zh="语音风格夸张度（0.0 到 1.0）"
+            en="Voice style exaggeration (0.0 to 1.0)",
+            zh="语音风格夸张度（0.0 到 1.0）",
         ),
         "use_speaker_boost": Description(
-            en="Enable speaker boost for better quality", zh="启用说话人增强以获得更好的质量"
+            en="Enable speaker boost for better quality",
+            zh="启用说话人增强以获得更好的质量",
         ),
     }
 
 
 class CartesiaTTSConfig(I18nMixin):
     """Configuration for Cartesia TTS."""
-    
-    model_id: Literal[ 
-        "sonic-3", 
-        "sonic-2", 
-        "sonic-turbo", 
-        "sonic-multilingual", 
-        "sonic"
-        ] = Field("sonic-3", alias="model_id")
-    
+
+    model_id: Literal[
+        "sonic-3", "sonic-2", "sonic-turbo", "sonic-multilingual", "sonic"
+    ] = Field("sonic-3", alias="model_id")
+
     api_key: str = Field(..., alias="api_key")
     voice_id: str = Field(..., alias="voice_id")
-    output_format: Literal["wav", "mp3"] =  Field("wav", alias="output_format")
+    output_format: Literal["wav", "mp3"] = Field("wav", alias="output_format")
     language: CartesiaLanguages = Field("en", alias="language")
     emotion: CartesiaEmotions = Field("neutral", alias="emotion")
     volume: int = Field(1, alias="volume")
     speed: int = Field(1, alias="speed")
 
     DESCRIPTIONS: ClassVar[Dict[str, Description]] = {
-     "api_key": Description(
-        en="API key for Cartesia TTS service", zh="Cartesia TTS 服务的 API 密钥"
-    ),
-     "voice_id": Description(
-        en="Voice ID from Cartesia (e.g., 6ccbfb76-1fc6-48f7-b71d-91ac6298247b)",
-        zh="来自 Cartesia 的语音 ID（如 6ccbfb76-1fc6-48f7-b71d-91ac6298247b）",
-    ),
-    "model_id": Description(
-        en="Model ID for Cartesia (e.g., sonic-3)",
-        zh="Cartesia 模型 ID（如 sonic-3）",
-    ),
-      "output_format": Description(
-        en="Output audio format (e.g., wav)",
-        zh="输出音频格式（如 wav）",
-    ),
-     "language": Description(
-        en="The language that the given voice should speak (e.g., en)", 
-        zh="给定语音应使用的语言（如 en）"
-    ),
-     "emotion": Description(
-        en="Emotional guidance for a generation (e.g., neutral)", 
-        zh="生成的情感指导（如 neutral）"
-    ),
-     "volume": Description(
-        en="volume of the generation, ranging from 0.5 to 2.0 (e.g., 1)", 
-        zh="生成的音量，范围从 0.5 到 2.0（如 1）"
-    ),
-     "speed": Description(
-        en="Speed of the generation, ranging from 0.6 to 1.5 (e.g., 1)", 
-        zh="生成的速度，范围从 0.6 到 1.5（如 1）"
-    ),
+        "api_key": Description(
+            en="API key for Cartesia TTS service", zh="Cartesia TTS 服务的 API 密钥"
+        ),
+        "voice_id": Description(
+            en="Voice ID from Cartesia (e.g., 6ccbfb76-1fc6-48f7-b71d-91ac6298247b)",
+            zh="来自 Cartesia 的语音 ID（如 6ccbfb76-1fc6-48f7-b71d-91ac6298247b）",
+        ),
+        "model_id": Description(
+            en="Model ID for Cartesia (e.g., sonic-3)",
+            zh="Cartesia 模型 ID（如 sonic-3）",
+        ),
+        "output_format": Description(
+            en="Output audio format (e.g., wav)",
+            zh="输出音频格式（如 wav）",
+        ),
+        "language": Description(
+            en="The language that the given voice should speak (e.g., en)",
+            zh="给定语音应使用的语言（如 en）",
+        ),
+        "emotion": Description(
+            en="Emotional guidance for a generation (e.g., neutral)",
+            zh="生成的情感指导（如 neutral）",
+        ),
+        "volume": Description(
+            en="volume of the generation, ranging from 0.5 to 2.0 (e.g., 1)",
+            zh="生成的音量，范围从 0.5 到 2.0（如 1）",
+        ),
+        "speed": Description(
+            en="Speed of the generation, ranging from 0.6 to 1.5 (e.g., 1)",
+            zh="生成的速度，范围从 0.6 到 1.5（如 1）",
+        ),
     }
 
 
@@ -761,6 +760,5 @@ class TTSConfig(I18nMixin):
             values.elevenlabs_tts.model_validate(values.elevenlabs_tts.model_dump())
         elif tts_model == "cartesia_tts" and values.cartesia_tts is not None:
             values.cartesia_tts.model_validate(values.cartesia_tts.model_dump())
-    
 
         return values

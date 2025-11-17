@@ -13,10 +13,10 @@ from cartesia import (
 
 try:
     from cartesia import (
-    Cartesia,
-    OutputFormat_Mp3Params,
-    OutputFormat_WavParams,
-)
+        Cartesia,
+        OutputFormat_Mp3Params,
+        OutputFormat_WavParams,
+    )
 
     CARTESIA_AVAILABLE = True
 except ImportError:
@@ -177,10 +177,10 @@ class TTSEngine(TTSInterface):
             output_format (str): Output audio format (e.g., mp3).
         """
         if not CARTESIA_AVAILABLE:
-           raise ImportError(
-               "cartesia is required. Install with: pip install cartesia"
-           )
-        
+            raise ImportError(
+                "cartesia is required. Install with: pip install cartesia"
+            )
+
         self.api_key = api_key
         self.voice_id = voice_id
         self.model_id = model_id
@@ -259,7 +259,8 @@ class TTSEngine(TTSInterface):
 
         return str(speech_file_path)
 
-#Code Used to Test Cartesia TTS Engine
+
+# Code Used to Test Cartesia TTS Engine
 # if __name__ == "__main__":
 #     tts_engine = TTSEngine()
 #     test_text = "Hello world! This is a test using Cartesia."
