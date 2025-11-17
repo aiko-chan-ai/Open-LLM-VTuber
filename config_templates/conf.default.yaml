@@ -303,7 +303,6 @@ character_config:
       normalize_audio: true     # Whether to normalize audio (recommended: true, for more consistent volume)
       use_cuda: false           # Whether to use GPU acceleration (requires onnxruntime-gpu)
 
-
     cosyvoice_tts: # Cosy Voice TTS connects to the gradio webui
       # Check their documentation for deployment and the meaning of the following configurations
       client_url: 'http://127.0.0.1:50000/' # CosyVoice gradio demo webui url
