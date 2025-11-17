@@ -11,7 +11,7 @@ try:
     PIPER_AVAILABLE = True
 except ImportError:
     PIPER_AVAILABLE = False
-    logger.warning("piper-tts not installed. Run: pip install piper-tts")
+    logger.warning("piper-tts not installed. Run: uv add piper-tts")
 
 
 # Piper TTS requires trained ONNX model files for speech synthesis
