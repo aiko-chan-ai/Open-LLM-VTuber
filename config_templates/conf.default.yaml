@@ -274,7 +274,7 @@ character_config:
     #   'azure_tts', 'pyttsx3_tts', 'edge_tts', 'bark_tts',
     #   'cosyvoice_tts', 'melo_tts', 'coqui_tts',
     #   'fish_api_tts', 'x_tts', 'gpt_sovits_tts', 'sherpa_onnx_tts'
-    #   'minimax_tts', 'elevenlabs_tts'
+    #   'minimax_tts', 'elevenlabs_tts', 'cartesia_tts'
 
     azure_tts:
       api_key: 'azure-api-key'
@@ -429,6 +429,16 @@ character_config:
       similarity_boost: 0.5 # Voice similarity boost (0.0 to 1.0)
       style: 0.0 # Voice style exaggeration (0.0 to 1.0)
       use_speaker_boost: true # Enable speaker boost for better quality
+    
+    cartesia_tts:
+      api_key: ''
+      voice_id: '' # Voice ID from Cartesia
+      model_id: 'sonic-3' # Model ID (e.g., sonic03)
+      output_format: 'wav' # Output audio format (e.g., wav)
+      language: 'en' #Output language of voice (e.g., en)
+      emotion: 'neutral' #Emotional Guidance
+      volume: 1 #Voice Volume (0.5 to 2.0)
+      speed: 1 #Voice Speed (0.6 to 1.5)
 
   # =================== Voice Activity Detection ===================
   vad_config:
