@@ -118,7 +118,7 @@
 
 ## 🤗 貢献したいですか？
 
-[Development Guide](https://www.google.com/search?q=https://docs.llmvtuber.com/docs/development-guide/overview)を参照してください。
+[Development Guide](https://docs.llmvtuber.com/docs/development-guide/overview)を参照してください。
 
 # 🎉🎉🎉 関連プロジェクト
 
