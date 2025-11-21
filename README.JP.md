@@ -44,7 +44,7 @@
 
 長期記憶機能は一時的に削除されましたが（まもなく再提供予定）、チャットログの **永続保存** のおかげで、以前に終わらなかった会話を **中断することなく続けることができ**、貴重なインタラクションの瞬間を失うことはありません。
 
-バックエンドサポートの面では、様々なLLM推論、テキスト読み上げ（TTS）、音声認識ソリューションを統合しました。AIコンパニオンをカスタマイズしたい場合は、[Character Customization Guide](https://www.google.com/search?q=https://open-llm-vtuber.github.io/docs/user-guide/live2d)を参照して、AIコンパニオンの外見や性格をカスタマイズできます。
+バックエンドサポートの面では、様々なLLM推論、テキスト読み上げ（TTS）、音声認識ソリューションを統合しました。AIコンパニオンをカスタマイズしたい場合は、[Character Customization Guide](https://open-llm-vtuber.github.io/docs/user-guide/live2d)を参照して、AIコンパニオンの外見や性格をカスタマイズできます。
 
 このプロジェクトが `Open-LLM-Companion` や `Open-LLM-Waifu` ではなく `Open-LLM-Vtuber` という名前である理由は、初期の開発目標が **Windows以外のプラットフォームでもオフラインで実行可能なオープンソースソリューションを活用** し、**クローズドなAI Vtuberである `neuro-sama` を再現** することだったためです。
 
