@@ -144,9 +144,9 @@
 
 このプロジェクトを可能にしてくださった **コントリビューターとメンテナの方々に感謝いたします。**
 
-\<a href="https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/graphs/contributors"\>
-\<img src="https://contrib.rocks/image?repo=Open-LLM-VTuber/Open-LLM-VTuber" /\>
-\</a\>
+<a href="https://github.com/Open-LLM-VTuber/Open-LLM-VTuber/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=Open-LLM-VTuber/Open-LLM-VTuber" />
+</a>
 
 ## スター履歴 (Star History)
 
