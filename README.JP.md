@@ -51,7 +51,7 @@
 このプロジェクトは `v1.0.0` バージョン以降、**コードのリファクタリング** を経ており、現在活発に開発中で、**まもなく様々な興味深い機能が追加される予定** です！🚀 アップデート計画は [Roadmap](https://www.google.com/search?q=https://github.com/users/t41372/projects/1/views/5) で確認できます。
 
 
-### 👀 데모
+### 👀 効果実証
 | ![](assets/i1.jpg) | ![](assets/i2.jpg) |
 |:---:|:---:|
 | ![](assets/i3.jpg) | ![](assets/i4.jpg) |
