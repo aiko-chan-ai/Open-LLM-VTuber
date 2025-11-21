@@ -150,4 +150,4 @@
 
 ## スター履歴 (Star History)
 
-[](https://star-history.com/#t41372/open-llm-vtuber&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=t41372/open-llm-vtuber&type=Date)](https://star-history.com/#t41372/open-llm-vtuber&Date)
