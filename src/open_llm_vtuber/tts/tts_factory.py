@@ -195,8 +195,8 @@ class TTSFactory:
                 output_format=kwargs.get("output_format", "wav"),
                 language=kwargs.get("language", "en"),
                 emotion=kwargs.get("emotion", "neutral"),
-                volume=kwargs.get("volume", 1),
-                speed=kwargs.get("speed", 1),
+                volume=kwargs.get("volume", 1.0),
+                speed=kwargs.get("speed", 1.0),
             )
         else:
             raise ValueError(f"Unknown TTS engine type: {engine_type}")

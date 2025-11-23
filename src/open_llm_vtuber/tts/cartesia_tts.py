@@ -1,16 +1,13 @@
+from __future__ import annotations
+
 # src/open_llm_vtuber/tts/cartesia_tts.py
-from loguru import logger
 from pathlib import Path
-from open_llm_vtuber.config_manager.tts import CartesiaEmotions, CartesiaLanguages
-from .tts_interface import TTSInterface
 from typing import Literal
 import os
-from cartesia import (
-    Cartesia,
-    OutputFormat_Mp3Params,
-    OutputFormat_WavParams,
-)
 
+from loguru import logger
+from open_llm_vtuber.config_manager.tts import CartesiaEmotions, CartesiaLanguages
+from .tts_interface import TTSInterface
 
 try:
     from cartesia import (
@@ -22,7 +19,7 @@ try:
     CARTESIA_AVAILABLE = True
 except ImportError:
     CARTESIA_AVAILABLE = False
-    logger.warning("cartesia not installed. Run: pip install cartesia")
+    logger.warning("cartesia not installed. Run: uv add cartesia")
 
 
 CartesiaModels = Literal[
@@ -56,8 +53,8 @@ class TTSEngine(TTSInterface):
         output_format: Literal["wav", "mp3"] = "wav",
         language: CartesiaLanguages = "en",
         emotion: CartesiaEmotions = "neutral",
-        volume: int = 1,
-        speed: int = 1,
+        volume: float = 1.0,
+        speed: float = 1.0,
     ):
         """
         Initializes the Cartesia TTS engine.

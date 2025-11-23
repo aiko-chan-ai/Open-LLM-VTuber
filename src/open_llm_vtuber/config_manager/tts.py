@@ -595,8 +595,8 @@ class CartesiaTTSConfig(I18nMixin):
     output_format: Literal["wav", "mp3"] = Field("wav", alias="output_format")
     language: CartesiaLanguages = Field("en", alias="language")
     emotion: CartesiaEmotions = Field("neutral", alias="emotion")
-    volume: int = Field(1, alias="volume")
-    speed: int = Field(1, alias="speed")
+    volume: float = Field(1.0, alias="volume")
+    speed: float = Field(1.0, alias="speed")
 
     DESCRIPTIONS: ClassVar[Dict[str, Description]] = {
         "api_key": Description(
