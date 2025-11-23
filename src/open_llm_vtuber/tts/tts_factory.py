@@ -197,6 +197,18 @@ class TTSFactory:
                 emotion=kwargs.get("emotion", "neutral"),
                 volume=kwargs.get("volume", 1.0),
                 speed=kwargs.get("speed", 1.0),
+        elif engine_type == "piper_tts":
+            from .piper_tts import TTSEngine as PiperTTSEngine
+
+            return PiperTTSEngine(
+                model_path=kwargs.get("model_path"),
+                speaker_id=kwargs.get("speaker_id"),
+                length_scale=kwargs.get("length_scale"),
+                noise_scale=kwargs.get("noise_scale"),
+                noise_w=kwargs.get("noise_w"),
+                volume=kwargs.get("volume"),
+                normalize_audio=kwargs.get("normalize_audio"),
+                use_cuda=kwargs.get("use_cuda"),
             )
         else:
             raise ValueError(f"Unknown TTS engine type: {engine_type}")
