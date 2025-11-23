@@ -431,6 +431,53 @@ class MinimaxTTSConfig(I18nMixin):
     }
 
 
+class PiperTTSConfig(I18nMixin):
+    """Configuration for Piper TTS."""
+
+    model_path: str = Field("models/piper/zh_CN-huayan-medium.onnx", alias="model_path")
+    speaker_id: int = Field(0, alias="speaker_id")
+    length_scale: float = Field(1.0, alias="length_scale")
+    noise_scale: float = Field(0.667, alias="noise_scale")
+    noise_w: float = Field(0.8, alias="noise_w")
+    volume: float = Field(1.0, alias="volume")
+    normalize_audio: bool = Field(True, alias="normalize_audio")
+    use_cuda: bool = Field(False, alias="use_cuda")
+
+    DESCRIPTIONS: ClassVar[Dict[str, Description]] = {
+        "model_path": Description(
+            en="Path to Piper ONNX model file",
+            zh="Piper ONNX 模型文件路径",
+        ),
+        "speaker_id": Description(
+            en="Speaker ID for multi-speaker models (default 0 for single-speaker)",
+            zh="多说话人模型的说话人 ID（单说话人模型默认为 0）",
+        ),
+        "length_scale": Description(
+            en="Speech speed control (0.5=2x faster, 1.0=normal, 2.0=2x slower)",
+            zh="语速控制（0.5=快一倍，1.0=正常，2.0=慢一倍）",
+        ),
+        "noise_scale": Description(
+            en="Audio variation degree (0.0-1.0, higher=more varied)",
+            zh="音频变化程度（0.0-1.0，越高音频越丰富多变）",
+        ),
+        "noise_w": Description(
+            en="Speaking style variation (0.0-1.0, higher=more diverse)",
+            zh="说话风格变化（0.0-1.0，越高说话风格越多样）",
+        ),
+        "volume": Description(
+            en="Output volume (0.0-1.0, 1.0=normal)", zh="音量（0.0-1.0，1.0=正常音量）"
+        ),
+        "normalize_audio": Description(
+            en="Whether to normalize audio output (recommended)",
+            zh="是否归一化音频输出（推荐启用）",
+        ),
+        "use_cuda": Description(
+            en="Whether to use GPU acceleration (requires onnxruntime-gpu)",
+            zh="是否使用 GPU 加速（需要安装 onnxruntime-gpu）",
+        ),
+    }
+
+
 class ElevenLabsTTSConfig(I18nMixin):
     """Configuration for ElevenLabs TTS."""
 
@@ -494,6 +541,7 @@ class TTSConfig(I18nMixin):
         "spark_tts",
         "minimax_tts",
         "elevenlabs_tts",
+        "piper_tts",
     ] = Field(..., alias="tts_model")
 
     azure_tts: Optional[AzureTTSConfig] = Field(None, alias="azure_tts")
@@ -516,6 +564,7 @@ class TTSConfig(I18nMixin):
     spark_tts: Optional[SparkTTSConfig] = Field(None, alias="spark_tts")
     minimax_tts: Optional[MinimaxTTSConfig] = Field(None, alias="minimax_tts")
     elevenlabs_tts: ElevenLabsTTSConfig | None = Field(None, alias="elevenlabs_tts")
+    piper_tts: Optional[PiperTTSConfig] = Field(None, alias="piper_tts")
 
     DESCRIPTIONS: ClassVar[Dict[str, Description]] = {
         "tts_model": Description(
@@ -555,6 +604,7 @@ class TTSConfig(I18nMixin):
         "elevenlabs_tts": Description(
             en="Configuration for ElevenLabs TTS", zh="ElevenLabs TTS 配置"
         ),
+        "piper_tts": Description(en="Configuration for Piper TTS", zh="Piper TTS 配置"),
     }
 
     @model_validator(mode="after")
@@ -594,5 +644,6 @@ class TTSConfig(I18nMixin):
             values.minimax_tts.model_validate(values.minimax_tts.model_dump())
         elif tts_model == "elevenlabs_tts" and values.elevenlabs_tts is not None:
             values.elevenlabs_tts.model_validate(values.elevenlabs_tts.model_dump())
-
+        elif tts_model == "piper_tts" and values.piper_tts is not None:
+            values.piper_tts.model_validate(values.piper_tts.model_dump())
         return values
