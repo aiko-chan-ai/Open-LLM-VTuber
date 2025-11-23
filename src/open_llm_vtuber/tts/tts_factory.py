@@ -185,6 +185,18 @@ class TTSFactory:
                 style=kwargs.get("style", 0.0),
                 use_speaker_boost=kwargs.get("use_speaker_boost", True),
             )
+        elif engine_type == "cartesia_tts":
+            from .cartesia_tts import TTSEngine as CartesiaTTSEngine
+
+            return CartesiaTTSEngine(
+                api_key=kwargs.get("api_key"),
+                voice_id=kwargs.get("voice_id", "6ccbfb76-1fc6-48f7-b71d-91ac6298247b"),
+                model_id=kwargs.get("model_id", "sonic-3"),
+                output_format=kwargs.get("output_format", "wav"),
+                language=kwargs.get("language", "en"),
+                emotion=kwargs.get("emotion", "neutral"),
+                volume=kwargs.get("volume", 1.0),
+                speed=kwargs.get("speed", 1.0),
         elif engine_type == "piper_tts":
             from .piper_tts import TTSEngine as PiperTTSEngine
 
