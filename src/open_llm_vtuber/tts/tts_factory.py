@@ -197,6 +197,7 @@ class TTSFactory:
                 emotion=kwargs.get("emotion", "neutral"),
                 volume=kwargs.get("volume", 1.0),
                 speed=kwargs.get("speed", 1.0),
+            )
         elif engine_type == "piper_tts":
             from .piper_tts import TTSEngine as PiperTTSEngine
 
