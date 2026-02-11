@@ -99,17 +99,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Prepare arch tags
-        id: arch-tags
+      - name: Prepare temporary arch tags
+        id: temp-tags
         shell: bash
         run: |
           set -euo pipefail
+          suffix="tmp-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${{ matrix.platform }}"
           {
             echo "tags<<EOF"
-            while IFS= read -r tag; do
-              [ -z "$tag" ] && continue
-              echo "${tag}-${{ matrix.platform }}"
-            done <<< "${{ needs.meta.outputs.tags }}"
+            echo "${{ needs.meta.outputs.dockerhub_image }}:${suffix}"
+            echo "${{ needs.meta.outputs.ghcr_image }}:${suffix}"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
@@ -120,36 +119,61 @@ jobs:
           file: ${{ env.DOCKERFILE }}
           platforms: ${{ matrix.docker_platform }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.arch-tags.outputs.tags }}
+          tags: ${{ steps.temp-tags.outputs.tags }}
           labels: ${{ needs.meta.outputs.labels }}
 
   manifest:
     needs: [meta, build]
-    runs-on: blacksmith-8vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
     if: github.event_name != 'pull_request'
     steps:
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to Docker Hub (retry)
+        shell: bash
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4; do
+            if echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin; then
+              exit 0
+            fi
+            if [ "${attempt}" -eq 4 ]; then
+              echo "Docker Hub login failed after ${attempt} attempts." >&2
+              exit 1
+            fi
+            sleep $((attempt * 5))
+          done
 
-      - name: Login to GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Login to GHCR (retry)
+        shell: bash
+        env:
+          GHCR_USER: ${{ github.actor }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4; do
+            if echo "${GHCR_TOKEN}" | docker login ghcr.io -u "${GHCR_USER}" --password-stdin; then
+              exit 0
+            fi
+            if [ "${attempt}" -eq 4 ]; then
+              echo "GHCR login failed after ${attempt} attempts." >&2
+              exit 1
+            fi
+            sleep $((attempt * 5))
+          done
 
       - name: Create and push multi-arch manifests
         shell: bash
         run: |
           set -euo pipefail
+          suffix_base="tmp-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           mapfile -t tags <<< "${{ needs.meta.outputs.tags }}"
           for tag in "${tags[@]}"; do
             [ -z "$tag" ] && continue
+            base="${tag%:*}"
             docker manifest create "$tag" \
-              "${tag}-amd64" \
-              "${tag}-arm64"
+              "${base}:${suffix_base}-amd64" \
+              "${base}:${suffix_base}-arm64"
             docker manifest push "$tag"
           done
