@@ -1,55 +1,81 @@
-# Base image
-FROM nvidia/cuda:12.6.0-cudnn-runtime-ubuntu22.04 AS base
+FROM python:3.10-slim
 
-# Set noninteractive mode for apt
-ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    UV_LINK_MODE=copy \
+    CONFIG_FILE=/app/conf/conf.yaml
 
-# Update and install dependencies
-RUN apt-get -o Acquire::AllowInsecureRepositories=true update && \
-    apt-get install -y libxcb-xfixes0 libxcb-shape0 || true && \
-    apt-get install -y --no-install-recommends ffmpeg || true && \
-    apt --fix-broken install -y && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Copy requirements and install common dependencies
-COPY requirements.txt /tmp/
-
-# Install pip
-RUN curl https://bootstrap.pypa.io/get-pip.py | python3 - && \
-    pip install --root-user-action=ignore --no-cache-dir -r /tmp/requirements.txt && \
-    pip install --root-user-action=ignore --no-cache-dir funasr modelscope huggingface_hub pywhispercpp torch torchaudio edge-tts azure-cognitiveservices-speech py3-tts
-
-# MeloTTS installation
-WORKDIR /opt/MeloTTS
-RUN git clone https://github.com/myshell-ai/MeloTTS.git /opt/MeloTTS && \
-    pip install --root-user-action=ignore --no-cache-dir -e . && \
-    python3 -m unidic download && \
-    python3 melo/init_downloads.py
-
-# Whisper variant
-FROM base AS whisper
-ARG INSTALL_ORIGINAL_WHISPER=false
-RUN if [ "$INSTALL_WHISPER" = "true" ]; then \
-        pip install --root-user-action=ignore --no-cache-dir openai-whisper; \
-    fi
-
-# Bark variant
-FROM whisper AS bark
-ARG INSTALL_BARK=false
-RUN if [ "$INSTALL_BARK" = "true" ]; then \
-        pip install --root-user-action=ignore --no-cache-dir git+https://github.com/suno-ai/bark.git; \
-    fi
-
-# Final image
-FROM bark AS final
-
-# Copy application code to the container
-COPY . /app
-
-# Set working directory
 WORKDIR /app
 
-# Expose port 12393 (the new default port)
+# Base dependencies
+RUN apt-get update -o Acquire::Retries=5 \
+ && apt-get install -y --no-install-recommends \
+      ffmpeg git curl ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
+
+# Install deps (cache-friendly)
+COPY pyproject.toml uv.lock ./
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-dev
+
+# Copy source & install project
+COPY . /app
+RUN uv pip install --no-deps .
+
+# Startup script
+RUN printf '%s\n' \
+  '#!/usr/bin/env sh' \
+  'set -eu' \
+  '' \
+  'mkdir -p /app/conf /app/models' \
+  '' \
+  '# 1) conf.yaml (required)' \
+  'if [ -f "/app/conf/conf.yaml" ]; then' \
+  '  echo "Using user-provided conf.yaml"' \
+  '  ln -sf /app/conf/conf.yaml /app/conf.yaml' \
+  'else' \
+  '  echo "ERROR: conf.yaml is required."' \
+  '  echo "Please mount your config dir to /app/conf"' \
+  '  exit 1' \
+  'fi' \
+  '' \
+  '# 2) model_dict.json (optional)' \
+  'if [ -f "/app/conf/model_dict.json" ]; then' \
+  '  ln -sf /app/conf/model_dict.json /app/model_dict.json' \
+  'fi' \
+  '' \
+  '# 3) live2d-models' \
+  'if [ -d "/app/conf/live2d-models" ]; then' \
+  '  rm -rf /app/live2d-models && ln -s /app/conf/live2d-models /app/live2d-models' \
+  'fi' \
+  '' \
+  '# 4) characters' \
+  'if [ -d "/app/conf/characters" ]; then' \
+  '  rm -rf /app/characters && ln -s /app/conf/characters /app/characters' \
+  'fi' \
+  '' \
+  '# 5) avatars' \
+  'if [ -d "/app/conf/avatars" ]; then' \
+  '  rm -rf /app/avatars && ln -s /app/conf/avatars /app/avatars' \
+  'fi' \
+  '' \
+  '# 6) backgrounds' \
+  'if [ -d "/app/conf/backgrounds" ]; then' \
+  '  rm -rf /app/backgrounds && ln -s /app/conf/backgrounds /app/backgrounds' \
+  'fi' \
+  '' \
+  '# 7) start app' \
+  'exec uv run run_server.py' \
+  > /usr/local/bin/start-app && chmod +x /usr/local/bin/start-app
+
+# Volumes
+VOLUME ["/app/conf", "/app/models"]
+
 EXPOSE 12393
 
-CMD ["python3", "server.py"]
+CMD ["/usr/local/bin/start-app"]
